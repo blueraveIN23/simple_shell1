@@ -51,9 +51,6 @@ void free_dp(char **arr);
 
 /*********************** GETLINE ******************************************/
 
-char *create_buffer(char **lineptr, size_t *n);
-ssize_t my_getline(char **lineptr, size_t *n, int fd);
-void process_buffer(char **lineptr, size_t *i, size_t *n, char **p, ssize_t *len);
-void append_char_to_line(char **lineptr, char **p, ssize_t *len);
+char *my_getline(void);
 
 #endif
