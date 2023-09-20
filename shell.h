@@ -7,10 +7,16 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <limits.h>
+#include <errno.h>
+#include <fcntl.h>
 
-
+#define BUFFER_SIZE 1024
 #define MAX_CMD_LEN 1024
 #define MAX_ARGS 64
+#define PROMPT "simple_shell> "
 
 int main(void);
 int check_betty(void);
@@ -19,5 +25,32 @@ char *search_path(char *cmd);
 int main_path(void);
 void execute_cmd(char *full_path, char **args);
 void tokenize_cmd(char *cmd, char **args);
+int _getpath(char **argv);
+
+
+
+
+extern char **environ;
+
+
+
+
+
+/*********************** CUSTOM DEFFINITIONS ********************************/
+
+char *d3s(char *str);
+char *_strcpy(char *dest, const char *src);
+char *_strdup(char *str);
+char **str2arr(char *str, char *delim);
+size_t _strlen(char *str);
+void free_dp(char **arr);
+
+/*********************** GETLINE ******************************************/
+
+char *create_buffer(char **lineptr, size_t *n);
+ssize_t my_getline(char **lineptr, size_t *n, int fd);
+void process_buffer(char **lineptr, size_t *i, size_t *n, char **p, ssize_t *len);
+void append_char_to_line(char **lineptr, char **p, ssize_t *len);
+
 
 #endif
