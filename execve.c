@@ -6,7 +6,7 @@
  * Return: 0
  */
 
-int main(void)
+int execve_main(void)
 {
 	int i;
 	char cmd[MAX_CMD_LEN];

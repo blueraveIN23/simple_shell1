@@ -1,12 +1,9 @@
-#ifndef SHELL_H
-#define SHELL_H
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+<<<<<<< HEAD
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <limits.h>
@@ -17,6 +14,15 @@
 #define MAX_CMD_LEN 1024
 #define MAX_ARGS 64
 #define PROMPT "simple_shell> "
+=======
+#include <sys/types.h>
+
+#ifndef SHELL_H
+#define SHELL_H
+#define MAX_CMD_LEN 1024
+#define MAX_ARGS 64
+#define PROMPT "simple_shell$"
+>>>>>>> 81a25e472955812aa05360626e72007fff19ac12
 
 int main(void);
 int check_betty(void);
@@ -25,6 +31,7 @@ char *search_path(char *cmd);
 int main_path(void);
 void execute_cmd(char *full_path, char **args);
 void tokenize_cmd(char *cmd, char **args);
+<<<<<<< HEAD
 int _getpath(char **argv);
 
 
@@ -52,5 +59,13 @@ ssize_t my_getline(char **lineptr, size_t *n, int fd);
 void process_buffer(char **lineptr, size_t *i, size_t *n, char **p, ssize_t *len);
 void append_char_to_line(char **lineptr, char **p, ssize_t *len);
 
+=======
+void execute_command(void);
+char *token;
+extern char **environ;
+int exit_main(void);
+void exit_shell(void);
+int execve_main(void);
+>>>>>>> 81a25e472955812aa05360626e72007fff19ac12
 
 #endif
