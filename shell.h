@@ -12,13 +12,17 @@
 #define BUFFER_SIZE 1024
 #define MAX_CMD_LEN 1024
 #define MAX_ARGS 64
+<<<<<<< HEAD
 
+=======
+>>>>>>> cbf2692469bc97688e28658a76447bf3a0c579ba
 
 #ifndef SHELL_H
 #define SHELL_H
 #define MAX_CMD_LEN 1024
 #define MAX_ARGS 64
-#define PROMPT "simple_shell$"
+#define PROMPT "simple-shell$"
+
 
 
 int main(void);

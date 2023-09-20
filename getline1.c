@@ -1,98 +1,48 @@
 #include "shell.h"
 
 
-
-/**
- * create_buffer - function to create buffer
- * @lineptr: double pointer to line
- * @n: number of character
- *
- * Return: result
- */
-char *create_buffer(char **lineptr, size_t *n)
-{
-	*lineptr = malloc(BUFFER_SIZE);
-	if (!*lineptr)
-		return (NULL);
-	*n = BUFFER_SIZE;
-	return (*lineptr);
-}
-
 /**
  * my_getline - simple implemetation of a getline function
- * @lineptr: double pointer to the line
- * @n: the number of character
- * @fd: the file descriptor
  *
  * Return: the number of character read or -1 on failure
  */
 
-ssize_t my_getline(char **lineptr, size_t *n, int fd)
+char *my_getline(void)
 {
-	static char buffer[BUFFER_SIZE];
-	static char *p;
-	static ssize_t len;
-	size_t i = 0;
+	char buffer[BUFFER_SIZE];
+	char *line = NULL;
+	size_t len = 0;
+	
 
-	if (!lineptr || !n || !create_buffer(lineptr, n))
-		return (-1);
-
-	**lineptr = '\0';
-
-	for (;;)
+	while (fgets(buffer, BUFFER_SIZE, stdin))
 	{
-		if (len <= 0)
-		{
-			len = read(fd, buffer, BUFFER_SIZE);
-			if (len < 0)
-				return (-1);
-			if (len == 0)
-				return (**lineptr ? (ssize_t)strlen(*lineptr) : -1);
+		size_t buflen = strlen(buffer);
 
-			p = buffer;
+		char *new_line = realloc(line, len + buflen + 1);
+
+		if (!new_line)
+		{
+			free(line);
+			return (NULL);
 		}
 
-		process_buffer(lineptr, &i, n, &p, &len);
-	}
-}
+		line = new_line;
 
-/**
- * process_buffer - process buffer
- * @lineptr: allocated memory
- * @n: number of memory
- * @i: append character
- * @p: value character
- * @len: character size
- * Return: 0
- */
-void process_buffer(char **lineptr, size_t *i, size_t *n,
-char **p, ssize_t *len)
-{
-	while (*len > 0)
-	{
-		if (*n <= strlen(*lineptr) + 1)
+		memcpy(line + len, buffer, buflen);
+		len += buflen;
+
+		if (buffer[buflen - 1] == '\n')
 		{
-			*n *= 2;
-			*lineptr = realloc(*lineptr, *n);
-			if (!*lineptr)
-				return;
+			line[len] = '\0';
+			return (line);
 		}
-		append_char_to_line(char **i,ssize_t **p, len);
 	}
-}
+	if (!len)
+	{
+		free(line);
+		return (NULL);
+	}
 
-/**
- * append_char_to_line - the function appends a character from the buffer
- * @lineptr: allocated memory
- * @i: append character
- * @p: value character
- * @len: character size
- * Return: 0
- */
-
-void append_char_to_line(char **lineptr, char **p, ssize_t *len)
-{
-	(*lineptr)[strlen(*lineptr) + 1] = '\0';
-	(*lineptr)[strlen(*lineptr)] = *(*p)++;
-	(*len)--;
+	line[len] = '\0';
+	return (line);
 }
