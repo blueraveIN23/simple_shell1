@@ -1,82 +1,48 @@
 #include "shell.h"
-#include <stdio.h>
-
-#define MAX_INPUT_SIZE 1024
 
 /**
- * execute_command - Executes a coomand with no arguments.
- * 
+ * exit_shell - Exits the shell program.
+ *
  */
-void execute_command(void);
-
+void exit_shell(void)
 {
-	pid_t pid;
-	int status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execvp(args[0], args) == -1)
-		{
-			perror("execvp");
-		}
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		perror("fork");
-	}
-	else
-	{
-		{
-		       wpid = waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
+	printf("\n");
+	exit(0);
 }
 
 /**
- * main - Main function of the simple shell program.
- * 
- * Return: Return an integer status code on completion.
+ * exit_ main - Is the main function for the simple shell program.
+ *
+ * Return: Return 0 when the shell exits successfully.
  */
-int main(void);
-
+int exit_main(void)
 {
-	char *token;
-	char input[MAX_INPUT_SIZE];
-	int should_run = 1;
+	char cmd[MAX_CMD_LEN];
 
-	while (should_run)
+	while (1)
 	{
-		printf("Simple Shell> ");
-		fflush(stdout);
+		printf(PROMPT);
 
-		fgets(input, MAX_INPUT_SIZE, stdin);
-
-		input[strlen(input) - 1] = '\0';
-
-		char *token;
-		int i = 0;
-		char *args[64];
-
-		while ((token = strtok(i == 0 ? input : NULL, " ")) != NULL)
+		if (fgets(cmd, sizeof(cmd), stdin) == NULL)
 		{
-			args[i] = token;
-			i++;
+			printf("\n");
+			exit_shell();
 		}
-		args[i] = NULL;
+		cmd[strlen(cmd) - 1] = '\0';
 
-		if (i > 0)
+		if (strcmp(cmd, "exit") == 0)
 		{
-			if (strcmp(args[0], "exit") == 0)
-			{
-				should_run = 0;
-				printf("Exiting the shell.\n");
-			}
-			else
-			{
-				execute_command(args);
-			}
+			exit_shell();
+		}
+		if (fork() == 0)
+		{
+			execlp(cmd, cmd, NULL);
+			perror(cmd);
+			exit(1);
+		}
+		else
+		{
+			wait(NULL);
 		}
 	}
 	return (0);
