@@ -12,7 +12,6 @@ char *my_getline(void)
 	char buffer[BUFFER_SIZE];
 	char *line = NULL;
 	size_t len = 0;
-	
 
 	while (fgets(buffer, BUFFER_SIZE, stdin))
 	{

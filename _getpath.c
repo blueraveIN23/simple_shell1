@@ -2,7 +2,6 @@
 
 /**
  * _getpath - returns the path of a command
- * 
  * @argv: number of argument passed
  *
  * Return: 0

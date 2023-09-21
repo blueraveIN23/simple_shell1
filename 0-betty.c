@@ -1,13 +1,13 @@
-#include "shell.h"
+#include <stdio.h>
 
 /**
- * check_betty - code that passes betty code
+ * check_betty - Entry point
  *
- * Return: Always 0
+ * Return: Always 0 (Success)
  */
-
 int check_betty(void)
 {
-	printf("Hello, World!\n");
+	printf("Hello, World\n");
 	return (0);
 }
+

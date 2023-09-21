@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * main - main point
+ * execve_main - main point
  *
  * Return: 0
  */
@@ -20,7 +20,7 @@ int execve_main(void)
 		printf("$ ");
 		if (fgets(cmd, MAX_CMD_LEN, stdin) == NULL)
 			break;
-		cmd[strlen(cmd)- 1] = '\0';
+		cmd[strlen(cmd) - 1] = '\0';
 		token = strtok(cmd, " ");
 
 		for (i = 0; token != NULL; i++)
@@ -35,7 +35,7 @@ int execve_main(void)
 				perror("Error");
 			exit(0);
 		}
-		else if(pid > 0)
+		else if (pid > 0)
 			wait(&status);
 	}
 	return (0);

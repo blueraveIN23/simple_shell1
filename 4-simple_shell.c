@@ -11,7 +11,7 @@ void exit_shell(void)
 }
 
 /**
- * exit_ main - Is the main function for the simple shell program.
+ * exit_main - Is the main function for the simple shell program.
  *
  * Return: Return 0 when the shell exits successfully.
  */
