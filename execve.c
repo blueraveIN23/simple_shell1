@@ -8,35 +8,42 @@
 
 int execve_main(void)
 {
-	int i;
 	char cmd[MAX_CMD_LEN];
-	char *args[MAX_ARGS];
-	char *token;
-	int status;
-	pid_t pid;
 
 	while (1)
 	{
 		printf("$ ");
-		if (fgets(cmd, MAX_CMD_LEN, stdin) == NULL)
-			break;
-		cmd[strlen(cmd) - 1] = '\0';
-		token = strtok(cmd, " ");
+		if (fgets(cmd, sizeof(cmd), stdin) == NULL)
+		{
+			printf("\n");
+			return (0);
+		}
 
-		for (i = 0; token != NULL; i++)
+		cmd[strcspn(cmd, "\n")] = '\0';
+
+		if (strlen(cmd) > 0)
 		{
-			args[i] = token;
-			token = strtok(NULL, " ");
+			pid_t pid = fork();
+
+			if (pid < 0)
+			{
+				perror("fork");
+				continue;
+			}
+
+			if (pid == 0)
+			{
+				execlp(cmd, cmd, NULL);
+
+				perror("exec");
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				wait(NULL);
+			}
 		}
-		pid = fork();
-		if (pid == 0)
-		{
-			if (execve(args[0], args, NULL) == -1)
-				perror("Error");
-			exit(0);
-		}
-		else if (pid > 0)
-			wait(&status);
 	}
+
 	return (0);
 }
