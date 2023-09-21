@@ -1,3 +1,7 @@
+#ifndef SHELL_H
+#define SHELL_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,12 +16,8 @@
 #define BUFFER_SIZE 1024
 #define MAX_CMD_LEN 1024
 #define MAX_ARGS 64
-
-#ifndef SHELL_H
-#define SHELL_H
-#define MAX_CMD_LEN 1024
-#define MAX_ARGS 64
 #define PROMPT "simple-shell$"
+
 
 
 int main(void);
