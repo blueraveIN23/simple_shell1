@@ -14,10 +14,10 @@
 #include <fcntl.h>
 
 #define BUFFER_SIZE 1024
-#define MAX_CMD_LEN 1024
+
 #define MAX_ARGS 64
 #define PROMPT "simple-shell$"
-
+#define MAX_CMD_LEN 256
 
 
 int main(void);
@@ -27,7 +27,11 @@ char *search_path(char *cmd);
 int main_path(void);
 void execute_cmd(char *full_path, char **args);
 void tokenize_cmd(char *cmd, char **args);
-void execute_command(void);
+
+void execute_command(char** argv);
+char **tokenize_command(char* cmd, char** argv);
+char* read_comd(char *cmd);
+void print_prompt(void);
 char *token;
 extern char **environ;
 int exit_main(void);
