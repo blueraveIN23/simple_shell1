@@ -39,7 +39,6 @@ int _getpath(char **argv);
 
 extern char **environ;
 
-
 /*********************** CUSTOM DEFFINITIONS ********************************/
 
 char *d3s(char *str);
@@ -52,5 +51,4 @@ void free_dp(char **arr);
 /*********************** GETLINE ******************************************/
 
 char *my_getline(void);
-
 #endif
