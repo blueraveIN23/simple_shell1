@@ -37,6 +37,7 @@ extern char **environ;
 int exit_main(void);
 void exit_shell(void);
 int execve_main(void);
+void handle_exit(char *arg);
 
 int _getpath(char **argv);
 
